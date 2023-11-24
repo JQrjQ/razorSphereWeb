@@ -1,5 +1,6 @@
 <div class="{{ 'lg:fixed' if path == 'home' }} w-full">
-    <nav class="flex items-center justify-center lg:justify-between flex-wrap p-6 lg:px-0 container mx-auto" x-data="{ isOpen: false }" @keydown.escape="isOpen = false"  @click.away="isOpen = false">
+    <nav class="flex items-center justify-center lg:justify-between flex-wrap p-6 lg:px-0 container mx-auto"
+        x-data="{ isOpen: false }" @keydown.escape="isOpen = false" @click.away="isOpen = false">
         <!--Logo etc-->
         <div class="flex items-center">
             <a href="/" class="text-indigo-500 font-bold text-lg">
@@ -7,27 +8,128 @@
         </div>
 
         <!--Toggle button (hidden on large screens)-->
-        <button @click="isOpen = !isOpen" type="button" class="ml-auto block lg:hidden px-2 text-primary-500 hover:text-primary-500 focus:outline-none focus:text-primary-500" :class="{ 'transition transform-180': isOpen }" aria-label="Menu">
+        <button @click="isOpen = !isOpen" type="button"
+            class="ml-auto block lg:hidden px-2 text-primary-500 hover:text-primary-500 focus:outline-none focus:text-primary-500"
+            :class="{ 'transition transform-180': isOpen }" aria-label="Menu">
             <svg class="h-6 w-6 fill-current" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24">
-                <path x-show="isOpen" fill-rule="evenodd" clip-rule="evenodd" d="M18.278 16.864a1 1 0 0 1-1.414 1.414l-4.829-4.828-4.828 4.828a1 1 0 0 1-1.414-1.414l4.828-4.829-4.828-4.828a1 1 0 0 1 1.414-1.414l4.829 4.828 4.828-4.828a1 1 0 1 1 1.414 1.414l-4.828 4.829 4.828 4.828z"/>
-                <path x-show="!isOpen" fill-rule="evenodd" d="M4 5h16a1 1 0 0 1 0 2H4a1 1 0 1 1 0-2zm0 6h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2zm0 6h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2z"/>
+                <path x-show="isOpen" fill-rule="evenodd" clip-rule="evenodd"
+                    d="M18.278 16.864a1 1 0 0 1-1.414 1.414l-4.829-4.828-4.828 4.828a1 1 0 0 1-1.414-1.414l4.828-4.829-4.828-4.828a1 1 0 0 1 1.414-1.414l4.829 4.828 4.828-4.828a1 1 0 1 1 1.414 1.414l-4.828 4.829 4.828 4.828z" />
+                <path x-show="!isOpen" fill-rule="evenodd"
+                    d="M4 5h16a1 1 0 0 1 0 2H4a1 1 0 1 1 0-2zm0 6h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2zm0 6h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2z" />
             </svg>
         </button>
 
         <!--Menu-->
-        <div class="w-full flex-grow lg:flex lg:items-center lg:w-auto text-center " :class="{ 'block shadow-3xl': isOpen, 'hidden': !isOpen }" x-show.transition="true">
+        <div class="w-full flex-grow lg:flex lg:items-center lg:w-auto text-center "
+            :class="{ 'block shadow-3xl': isOpen, 'hidden': !isOpen }" x-show.transition="true">
 
             {% if navigation.items %}
 
-                <ul class="pt-6 lg:pt-0 list-reset lg:flex justify-end flex-1 items-center">
-                    {% for item in navigation.items %}
-                        <li class="nav__item mr-3">
-                            <a @click="isOpen = false" class="text-ml inline-block text-gray-500 no-underline hover:text-indigo-500 py-2 px-4" href="{{ item.url }}">{{ item.text }}</a>
-                        </li>
-                    {% endfor %}
-                </ul>
+            <ul class="pt-6 lg:pt-0 list-reset lg:flex justify-end flex-1 items-center">
+                {% for item in navigation.items %}
+                <li class="nav__item mr-3">
+                    <a @click="isOpen = false"
+                        class="text-ml inline-block text-gray-500 no-underline hover:text-indigo-500 py-2 px-4"
+                        href="{{ item.url }}">{{ item.text }}</a>
+                </li>
+                {% endfor %}
+            </ul>
 
             {% endif %}
         </div>
     </nav>
 </div>
+<nav class="fixed top-0 w-full z-50 mobile-menu-bg">
+    <div class="container">
+        <div class="lg:flex items-center justify-between gap-6">
+            <div class="flex items-center justify-between">
+                <a href="/">
+                    <img src="assets/images/logo-dark.svg" class="" alt="logo">
+                </a>
+                <button class="text-end mobile-menu-button lg:hidden">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
+                        stroke="currentColor" class="w-8 h-8">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"></path>
+                    </svg>
+                </button>
+            </div>
+            <div id="navbarNav" class="mobile-menu hidden lg:block">
+                <ul
+                    class="lg:space-x-8 space-y-4 lg:space-y-0 lg:flex items-center mt-6 lg:mt-0 max-[1024px]:max-h-80 max-[1024px]:overflow-scroll">
+                    <li class="nav-active">
+                        <a class="uppercase text-sm font-medium lg:py-9 tracking-[0.86px] text-dark-semilight relative hover:text-dark duration-300 sub-active"
+                            href="/">
+                            Home
+                        </a>
+                    </li>
+                    <li class="relative group">
+                        <a href="javaScript:void();"
+                            class="uppercase text-sm font-medium lg:py-9 tracking-[0.86px] text-dark-semilight relative hover:text-dark duration-300">
+                            Pages
+                            <span class="ml-1.5">
+                                <svg width="8" height="6" class="inline-block" viewBox="0 0 8 6" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M0.0466659 0.744778L3.86978 5.53751C3.93301 5.61663 4.06672 5.61663 4.12995 5.53751L7.95348 0.744445C7.99899 0.68712 8.01247 0.601674 7.98793 0.527294C7.98285 0.511735 7.97719 0.499838 7.97245 0.490935C7.94325 0.436855 7.88717 0.403076 7.8256 0.403076H0.174128C0.112893 0.403076 0.0564835 0.436772 0.02753 0.490935C0.0226212 0.500004 0.0169636 0.511985 0.0122212 0.526378C-0.0124892 0.601674 0.000906017 0.687287 0.0466659 0.744778Z"
+                                        fill="#272727"></path>
+                                </svg>
+                            </span>
+                        </a>
+                        <div class="sub-menu">
+                            <ul>
+                                <li>
+                                    <a class="uppercase text-sm font-medium tracking-[0.86px] text-dark-semilight relative hover:text-dark duration-300"
+                                        href="/about">About</a>
+                                </li>
+                                <li>
+                                    <a class="uppercase text-sm font-medium tracking-[0.86px] text-dark-semilight relative hover:text-dark duration-300"
+                                        href="/faqs">Faqs</a>
+                                </li>
+                                <li>
+                                    <a class="uppercase text-sm font-medium tracking-[0.86px] text-dark-semilight relative hover:text-dark duration-300"
+                                        href="/services">Service</a>
+                                </li>
+                                <li>
+                                    <a class="uppercase text-sm font-medium tracking-[0.86px] text-dark-semilight relative hover:text-dark duration-300"
+                                        href="/utility">Utility</a>
+                                </li>
+                                <li>
+                                    <a class="uppercase text-sm font-medium tracking-[0.86px] text-dark-semilight relative hover:text-dark duration-300"
+                                        href="/pricing">Pricing</a>
+                                </li>
+                                <li>
+                                    <a class="uppercase text-sm font-medium tracking-[0.86px] text-dark-semilight relative hover:text-dark duration-300"
+                                        href="/error">Error</a>
+                                </li>
+                                <li>
+                                    <a class="uppercase text-sm font-medium tracking-[0.86px] text-dark-semilight relative hover:text-dark duration-300"
+                                        href="/team">Team</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a class="uppercase text-sm font-medium lg:py-9 tracking-[0.86px] text-dark-semilight relative hover:text-dark duration-300"
+                            href="/work">
+                            Work
+                        </a>
+                    </li>
+                    <li>
+                        <a class="uppercase text-sm font-medium lg:py-9 tracking-[0.86px] text-dark-semilight relative hover:text-dark duration-300"
+                            href="/blog">
+                            Blog
+                        </a>
+                    </li>
+                    <li>
+                        <a class="uppercase text-sm font-medium lg:py-9 tracking-[0.86px] text-dark-semilight relative hover:text-dark duration-300"
+                            href="/contact">
+                            Contact
+                        </a>
+                    </li>
+                    <a class="btn-blue navbar-btn lg:!ml-16" href="/contact">Start a project</a>
+                </ul>
+            </div>
+        </div>
+    </div>
+</nav>
